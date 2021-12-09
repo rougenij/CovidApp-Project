@@ -11,3 +11,12 @@
 //Empty Screen --> empty Graph
 // fillContinentObj --> first we fetch the data from the API, we take the name the and country Code Creates buttons that has continent names in it --> [Asia] [Afria] [America] [Europe] [Australia]
 //! Example---> when we click on Asia --> Show all countries graph(Fetch from new API "about-corona API") || Be able to select any country in Asia  (in a dropdown menu)
+
+// https://codepen.io/sjuz/pen/WNQNGdw spinner to use for data loads
+// https://codepen.io/z-/pen/YzPxWyW spinner to use for data loads
+
+//TODO
+//Create button dyanmic on load, from fetching data
+
+//TODO LIST
+//TODO Read more about "Local Storage " or "SessionStorage"
