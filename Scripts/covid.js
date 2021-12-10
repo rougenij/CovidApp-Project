@@ -5,9 +5,16 @@ let covidDataArr = [];
 let graphFor = "confirmed";
 let currentRegion = "";
 
+const deathsEl = document.createElement("span");
+const confirmedEl = document.createElement("span");
+const recoveredEl = document.createElement("span");
+const criticalEl = document.createElement("span");
+const newDeathsEl = document.createElement("span");
+const newConfirmedEl = document.createElement("span");
 //Creating all the display info containers
 const totalDataHolder = document.createElement("div");
 totalDataHolder.classList.add("main-data--holder");
+
 const totalCasesHolder = document.createElement("div");
 totalCasesHolder.classList.add("main-data--totalcases");
 const totalDeathHolder = document.createElement("div");
@@ -16,12 +23,30 @@ const totalRecovered = document.createElement("div");
 totalRecovered.classList.add("main-data--totalrecovered");
 const criticalHolder = document.createElement("div");
 criticalHolder.classList.add("main-data--criticalcases");
+const newDeathHolder = document.createElement("div");
+newDeathHolder.classList.add("main-data--newdeath");
+const newCaseHolder = document.createElement("div");
+newCaseHolder.classList.add("main-data--newcases");
 
-totalDataHolder.appendChild(totalCasesHolder);
-totalDataHolder.appendChild(totalDeathHolder);
-totalDataHolder.appendChild(totalRecovered);
-totalDataHolder.appendChild(criticalHolder);
-document.body.appendChild(totalCasesHolder);
+const textEl1 = document.createElement("span");
+textEl1.textContent = "Total Confirmed Cases:";
+const textEl2 = document.createElement("span");
+textEl2.textContent = "New Cases:";
+const textEl3 = document.createElement("span");
+textEl3.textContent = "Total Deaths:";
+const textEl4 = document.createElement("span");
+textEl4.textContent = "New Deaths:";
+const textEl5 = document.createElement("span");
+textEl5.textContent = "Total Recovered:";
+const textEl6 = document.createElement("span");
+textEl6.textContent = "In Critical Condition:";
+
+totalCasesHolder.appendChild(textEl1);
+totalDeathHolder.appendChild(textEl3);
+totalRecovered.appendChild(textEl5);
+criticalHolder.appendChild(textEl6);
+newDeathHolder.appendChild(textEl4);
+newCaseHolder.appendChild(textEl2);
 
 const holderEl = document.createElement("div");
 holderEl.classList.add("main-buttons-holder");
@@ -50,37 +75,31 @@ casesBtn.textContent = "Confirmed Cases";
 recoveredBtn.textContent = "Recovered";
 criticalBtn.textContent = "Critical Cases";
 deathsBtn.addEventListener("click", () => {
-  spinner.classList.toggle("none");
   graphFor = "deaths";
   fetchCountryByRegion(currentRegion);
 });
 casesBtn.addEventListener("click", () => {
-  spinner.classList.toggle("none");
   graphFor = "confirmed";
   fetchCountryByRegion(currentRegion);
 });
 recoveredBtn.addEventListener("click", () => {
-  spinner.classList.toggle("none");
   graphFor = "recovered";
   fetchCountryByRegion(currentRegion);
 });
 criticalBtn.addEventListener("click", () => {
-  spinner.classList.toggle("none");
   graphFor = "critical";
   fetchCountryByRegion(currentRegion);
 });
-holderEl.appendChild(deathsBtn);
-holderEl.appendChild(casesBtn);
-holderEl.appendChild(recoveredBtn);
-holderEl.appendChild(criticalBtn);
+const secondHolderEl = document.createElement("div");
+secondHolderEl.appendChild(deathsBtn);
+secondHolderEl.appendChild(casesBtn);
+secondHolderEl.appendChild(recoveredBtn);
+secondHolderEl.appendChild(criticalBtn);
 //Creating the DropDown Menu
 const dropDown = document.createElement("select");
 
 dropDown.addEventListener("input", (e) => {
-  spinner.classList.toggle("none");
-  console.log(
-    fetchFromCountry(e.target.selectedOptions[0].getAttribute("code"))
-  );
+  fetchFromCountry(e.target.selectedOptions[0].getAttribute("code"));
 });
 
 window.addEventListener("load", () => {
@@ -120,43 +139,49 @@ holderEl.appendChild(americasBtn);
 holderEl.appendChild(europeBtn);
 holderEl.appendChild(worldBtn);
 holderEl.appendChild(dropDown);
-canvesHoler.appendChild(canvasEl);
 document.body.appendChild(holderEl);
+document.body.appendChild(secondHolderEl);
+totalDataHolder.appendChild(totalCasesHolder);
+totalDataHolder.appendChild(totalDeathHolder);
+totalDataHolder.appendChild(totalRecovered);
+totalDataHolder.appendChild(criticalHolder);
+totalDataHolder.appendChild(newDeathHolder);
+totalDataHolder.appendChild(newCaseHolder);
+document.body.appendChild(totalDataHolder);
+
+canvesHoler.appendChild(canvasEl);
+
 document.body.appendChild(canvesHoler);
 
 asiaBtn.addEventListener("click", () => {
-  spinner.classList.toggle("none");
   currentRegion = "/region/Asia";
   fetchCountryByRegion("/region/Asia");
   // Need to add disable on button
 });
 americasBtn.addEventListener("click", () => {
-  spinner.classList.toggle("none");
   currentRegion = "/region/Americas";
   fetchCountryByRegion("/region/Americas");
   // Need to add disable on button
 });
 europeBtn.addEventListener("click", () => {
-  spinner.classList.toggle("none");
   currentRegion = "/region/Europe";
   fetchCountryByRegion("/region/Europe");
   // Need to add disable on button
 });
 africaBtn.addEventListener("click", () => {
-  spinner.classList.toggle("none");
   currentRegion = "/region/Africa";
   fetchCountryByRegion("/region/Africa");
   // Need to add disable on button
 });
 
 worldBtn.addEventListener("click", () => {
-  spinner.classList.toggle("none");
   currentRegion = "";
   fetchCountryByRegion("");
   // Need to add disable on button
 });
 
 async function fetchCountryByRegion(region) {
+  spinner.classList.toggle("none");
   try {
     const response = await fetch(
       `https://intense-mesa-62220.herokuapp.com/https://restcountries.herokuapp.com/api/v1${region}`
@@ -176,6 +201,7 @@ async function fetchCountryByRegion(region) {
       countryCodeArr.push(data[i].cca2);
       const optionsInDropDown = document.createElement("option");
       optionsInDropDown.textContent = data[i].name.common;
+      optionsInDropDown.setAttribute("code", data[i].cca2);
       dropDown.appendChild(optionsInDropDown);
     }
 
@@ -225,15 +251,40 @@ function drawingChart(graphFor, countryNames, countryCovidData) {
 }
 
 async function fetchFromCountry(code) {
-  const fetchingData = await fetch(`https://corona-api.com/countries/${code}`);
-  const covidData = await fetchingData.json();
-  const deaths = covidData.data.latest_data.deaths;
-  const confirmed = covidData.data.latest_data.confirmed;
-  const recovered = covidData.data.latest_data.recovered;
-  const critical = covidData.data.latest_data.critical;
-  const newDeaths = covidData.data.today.deaths;
-  const newConfirmed = covidData.data.today.confirmed;
-  console.log(deaths, confirmed, recovered, critical);
-  console.log(newDeaths, newConfirmed);
+  spinner.classList.toggle("none");
+  deathsEl.textContent = "";
+  confirmedEl.textContent = "";
+  recoveredEl.textContent = "";
+  criticalEl.textContent = "";
+  newDeathsEl.textContent = "";
+  newConfirmedEl.textContent = "";
+  try {
+    const fetchingData = await fetch(
+      `https://corona-api.com/countries/${code}`
+    );
+    const covidData = await fetchingData.json();
+    const deaths = covidData.data.latest_data.deaths;
+    const confirmed = covidData.data.latest_data.confirmed;
+    const recovered = covidData.data.latest_data.recovered;
+    const critical = covidData.data.latest_data.critical;
+    const newDeaths = covidData.data.today.deaths;
+    const newConfirmed = covidData.data.today.confirmed;
+
+    deathsEl.textContent = deaths;
+    confirmedEl.textContent = confirmed;
+    recoveredEl.textContent = recovered;
+    criticalEl.textContent = critical;
+    newDeathsEl.textContent = newDeaths;
+    newConfirmedEl.textContent = newConfirmed;
+
+    totalCasesHolder.appendChild(confirmedEl);
+    totalDeathHolder.appendChild(deathsEl);
+    totalRecovered.appendChild(recoveredEl);
+    criticalHolder.appendChild(criticalEl);
+    newDeathHolder.appendChild(newDeathsEl);
+    newCaseHolder.appendChild(newConfirmedEl);
+  } catch (err) {
+    console.log("failed", err);
+  }
   spinner.classList.toggle("none");
 }

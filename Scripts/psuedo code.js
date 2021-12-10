@@ -1,4 +1,14 @@
 //* Psuedo code *\\
+//! Way to type code => {
+//*     1) Global Variables
+//*     2) QuerySelectors
+//*     3) CreateElement + Class list
+//*     4) Text Content
+//*     5) Appending
+//*     6) addEventListener
+//*      7) Functions
+//! }
+
 //* Create an object that has 5 keys
 //fetch('https://corona-api.com/countries').then((response) => response.json()).then((res)=>console.log(res)); --> Gets the Data of every country
 //fetch('https://intense-mesa-62220.herokuapp.com/https://restcountries.herokuapp.com/api/v1/region/${name]').then((response) => response.json()).then((res)=> console.log(res));
