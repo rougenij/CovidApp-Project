@@ -1,0 +1,377 @@
+@import url("https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+header {
+  text-align: center;
+  color: red;
+  border-bottom: 2px solid black;
+}
+header i {
+  color: black;
+  position: relative;
+  top: 2px;
+}
+/* Spinner CSS */
+
+.loading-screen {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.4);
+}
+.none {
+  display: none !important;
+}
+.box {
+  position: absolute;
+  margin: auto;
+  display: block;
+  margin: 0 auto;
+  margin-top: 4%;
+  width: 600px;
+  height: 420px;
+  background: none;
+}
+.body {
+  position: absolute;
+  top: 16.5%;
+  left: 40%;
+  width: 20%;
+  height: 28%;
+  background: #b1b4b9;
+  border-radius: 50%;
+  animation: 5s roll infinite alternate;
+}
+.details {
+  position: absolute;
+  height: 23%;
+  width: 70%;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.details .r-detail {
+  position: absolute;
+  background: #c52639;
+  top: 45%;
+  width: 135%;
+  height: 9%;
+  transform: rotate(-45deg);
+  left: -17%;
+}
+.details .m-detail {
+  position: absolute;
+  background: #c52639;
+  top: 45%;
+  width: 135%;
+  height: 9%;
+  transform: rotate(90deg);
+  left: -17%;
+}
+.details .mm-detail {
+  position: absolute;
+  background: #c52639;
+  top: 45%;
+  width: 135%;
+  height: 9%;
+  transform: rotate(0deg);
+  left: -17%;
+}
+.details .l-detail {
+  position: absolute;
+  background: #c52639;
+  top: 45%;
+  width: 135%;
+  height: 9%;
+  transform: rotate(45deg);
+  right: -17%;
+}
+.shapes {
+  position: absolute;
+  height: 23%;
+  width: 70%;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.shapes .b-shape {
+  position: absolute;
+  height: 18%;
+  width: 18%;
+  left: -10%;
+  bottom: -11%;
+  background: #c52639;
+  border-radius: 50%;
+}
+.shapes .t-shape {
+  position: absolute;
+  height: 18%;
+  width: 18%;
+  right: -10%;
+  top: -11%;
+  background: #c52639;
+  border-radius: 50%;
+}
+.shapes .rb-shape {
+  position: absolute;
+  height: 18%;
+  width: 18%;
+  right: -10%;
+  bottom: -11%;
+  background: #c52639;
+  border-radius: 50%;
+}
+.shapes .tm-shape {
+  position: absolute;
+  height: 18%;
+  width: 18%;
+  right: 40%;
+  top: -30%;
+  background: #c52639;
+  border-radius: 50%;
+}
+.shapes .lm-shape {
+  position: absolute;
+  height: 18%;
+  width: 18%;
+  left: -30%;
+  bottom: 41%;
+  background: #c52639;
+  border-radius: 50%;
+}
+.shapes .rm-shape {
+  position: absolute;
+  height: 18%;
+  width: 18%;
+  right: -30%;
+  bottom: 41%;
+  background: #c52639;
+  border-radius: 50%;
+}
+.shapes .bm-shape {
+  position: absolute;
+  height: 18%;
+  width: 18%;
+  right: 40.5%;
+  bottom: -30%;
+  background: #c52639;
+  border-radius: 50%;
+}
+.shapes .lt-shape {
+  position: absolute;
+  height: 18%;
+  width: 18%;
+  left: -10%;
+  top: -12%;
+  background: #c52639;
+  border-radius: 50%;
+}
+.sm-details {
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  top: 5%;
+  left: 5%;
+  transform: rotate(25deg);
+  z-index: -1;
+}
+.sm-details .r-detail {
+  position: absolute;
+  background: #c52639;
+  top: 45%;
+  width: 135%;
+  height: 9%;
+  transform: rotate(-45deg);
+  left: -17%;
+}
+.sm-details .m-detail {
+  position: absolute;
+  background: #c52639;
+  top: 45%;
+  width: 135%;
+  height: 9%;
+  transform: rotate(90deg);
+  left: -17%;
+}
+.sm-details .mm-detail {
+  position: absolute;
+  background: #c52639;
+  top: 45%;
+  width: 135%;
+  height: 9%;
+  transform: rotate(0deg);
+  left: -17%;
+}
+.sm-details .l-detail {
+  position: absolute;
+  background: #c52639;
+  top: 45%;
+  width: 135%;
+  height: 9%;
+  transform: rotate(45deg);
+  right: -17%;
+}
+.sm-shapes {
+  position: absolute;
+  height: 23%;
+  width: 70%;
+  width: 88%;
+  height: 88%;
+  top: 7%;
+  left: 7%;
+  transform: rotate(24deg);
+  z-index: -1;
+}
+.sm-shapes .b-shape {
+  position: absolute;
+  height: 16%;
+  width: 16%;
+  left: -12%;
+  bottom: -10%;
+  background: #c52639;
+  border-radius: 50%;
+}
+.sm-shapes .t-shape {
+  position: absolute;
+  height: 16%;
+  width: 16%;
+  right: -10%;
+  top: -12%;
+  background: #c52639;
+  border-radius: 50%;
+}
+.sm-shapes .rb-shape {
+  position: absolute;
+  height: 16%;
+  width: 16%;
+  right: -6%;
+  bottom: -9%;
+  background: #c52639;
+  border-radius: 50%;
+}
+.sm-shapes .tm-shape {
+  position: absolute;
+  height: 16%;
+  width: 16%;
+  right: 42%;
+  top: -33%;
+  background: #c52639;
+  border-radius: 50%;
+}
+.sm-shapes .lm-shape {
+  position: absolute;
+  height: 16%;
+  width: 16%;
+  left: -32%;
+  bottom: 44%;
+  background: #c52639;
+  border-radius: 50%;
+}
+.sm-shapes .rm-shape {
+  position: absolute;
+  height: 16%;
+  width: 16%;
+  right: -30%;
+  bottom: 42.5%;
+  background: #c52639;
+  border-radius: 50%;
+}
+.sm-shapes .bm-shape {
+  position: absolute;
+  height: 16%;
+  width: 16%;
+  right: 44%;
+  bottom: -30%;
+  background: #c52639;
+  border-radius: 50%;
+}
+.sm-shapes .lt-shape {
+  position: absolute;
+  height: 16%;
+  width: 16%;
+  left: -9%;
+  top: -10%;
+  background: #c52639;
+  border-radius: 50%;
+}
+.centered {
+  position: absolute;
+  top: 16.5%;
+  left: 40%;
+  margin: 0 auto;
+  width: 20%;
+  height: 28%;
+  background: #b1b4b9;
+  background-image: radial-gradient(#b1b4b9, #a9acb1);
+  box-shadow: 0px 0px 16px 2px #c52639;
+  border-radius: 50%;
+  z-index: 0;
+}
+.centered .text {
+  font-family: "Source Code Pro", monospace;
+  font-weight: 700;
+  font-size: 1.025rem;
+  color: #191919;
+  text-align: center;
+  vertical-align: middle;
+  position: absolute;
+  width: 80%;
+  height: 40%;
+  margin: 42.5% 10%;
+}
+.message {
+  font-family: "Cutive Mono", monospace;
+  color: #c52639;
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-align: center;
+  vertical-align: middle;
+  position: absolute;
+  width: 80%;
+  height: 40%;
+  margin: 42.5% 10%;
+  text-align: center;
+  text-shadow: 0 0 2px #c52639, 0 0 4px #c52639, 0 0 16px #e1163f;
+}
+@keyframes roll {
+  to {
+    transform: rotate(360deg) scale(0.95);
+  }
+}
+@media only screen and (max-width: 600px) {
+  .box {
+    width: 400px;
+    height: 280px;
+  }
+  .centered .text {
+    font-size: 0.8rem;
+  }
+  .body,
+  .centered {
+    left: 35%;
+  }
+  .message {
+    font-size: 1.25rem;
+    margin: 42.5% 5%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .centered .text {
+    font-size: 0.8rem;
+  }
+  .body,
+  .centered {
+    left: 30%;
+  }
+  .message {
+    font-size: 1.25rem;
+    margin: 42.5% 0;
+  }
+}

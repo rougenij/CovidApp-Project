@@ -4,10 +4,61 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/CSS/style.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
+      rel="stylesheet"
+    />
     <title>COVID App</title>
   </head>
   <body>
-    <!-- <canvas id="myChart"></canvas>  Adding a Chat  -->
+    <header>
+      <h1>C<i class="bx bxs-virus"></i>VID Tracker</h1>
+    </header>
+    <!-- Loading Data Spinner -->
+    <div data-spinner class="loading-screen none">
+      <div class="box">
+        <div class="body">
+          <div class="details">
+            <div class="r-detail"></div>
+            <div class="m-detail"></div>
+            <div class="mm-detail"></div>
+            <div class="l-detail"></div>
+          </div>
+          <div class="shapes">
+            <div class="b-shape"></div>
+            <div class="t-shape"></div>
+            <div class="rb-shape"></div>
+            <div class="tm-shape"></div>
+            <div class="lm-shape"></div>
+            <div class="rm-shape"></div>
+            <div class="bm-shape"></div>
+            <div class="lt-shape"></div>
+          </div>
+          <div class="sm-details">
+            <div class="r-detail"></div>
+            <div class="m-detail"></div>
+            <div class="mm-detail"></div>
+            <div class="l-detail"></div>
+          </div>
+          <div class="sm-shapes">
+            <div class="b-shape"></div>
+            <div class="t-shape"></div>
+            <div class="rb-shape"></div>
+            <div class="tm-shape"></div>
+            <div class="lm-shape"></div>
+            <div class="rm-shape"></div>
+            <div class="bm-shape"></div>
+            <div class="lt-shape"></div>
+          </div>
+        </div>
+        <div class="centered">
+          <div class="text">COVID-19</div>
+        </div>
+        <div class="message">Please wait... <br />Your life is on hold</div>
+      </div>
+    </div>
+  </div>
   </body>
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js"

@@ -2,9 +2,34 @@
 let countriesArr = [];
 let countryCodeArr = [];
 let covidDataArr = [];
-let chartColorsArr = [[], []];
 let graphFor = "confirmed";
+let currentRegion = "";
 
+//Creating all the display info containers
+const totalDataHolder = document.createElement("div");
+totalDataHolder.classList.add("main-data--holder");
+const totalCasesHolder = document.createElement("div");
+totalCasesHolder.classList.add("main-data--totalcases");
+const totalDeathHolder = document.createElement("div");
+totalDeathHolder.classList.add("main-data--totaldeath");
+const totalRecovered = document.createElement("div");
+totalRecovered.classList.add("main-data--totalrecovered");
+const criticalHolder = document.createElement("div");
+criticalHolder.classList.add("main-data--criticalcases");
+
+totalDataHolder.appendChild(totalCasesHolder);
+totalDataHolder.appendChild(totalDeathHolder);
+totalDataHolder.appendChild(totalRecovered);
+totalDataHolder.appendChild(criticalHolder);
+document.body.appendChild(totalCasesHolder);
+
+const holderEl = document.createElement("div");
+holderEl.classList.add("main-buttons-holder");
+const canvesHoler = document.createElement("div");
+canvesHoler.classList.add("canvas-holder");
+const casesHolder = document.createElement("div");
+casesHolder.classList.add("casesButtons");
+const spinner = document.querySelector("[data-spinner]");
 const canvasEl = document.createElement("canvas");
 let myChart = new Chart(canvasEl, {});
 
@@ -20,9 +45,44 @@ const casesBtn = document.createElement("button");
 const deathsBtn = document.createElement("button");
 const recoveredBtn = document.createElement("button");
 const criticalBtn = document.createElement("button");
-
+deathsBtn.textContent = "Death";
+casesBtn.textContent = "Confirmed Cases";
+recoveredBtn.textContent = "Recovered";
+criticalBtn.textContent = "Critical Cases";
+deathsBtn.addEventListener("click", () => {
+  spinner.classList.toggle("none");
+  graphFor = "deaths";
+  fetchCountryByRegion(currentRegion);
+});
+casesBtn.addEventListener("click", () => {
+  spinner.classList.toggle("none");
+  graphFor = "confirmed";
+  fetchCountryByRegion(currentRegion);
+});
+recoveredBtn.addEventListener("click", () => {
+  spinner.classList.toggle("none");
+  graphFor = "recovered";
+  fetchCountryByRegion(currentRegion);
+});
+criticalBtn.addEventListener("click", () => {
+  spinner.classList.toggle("none");
+  graphFor = "critical";
+  fetchCountryByRegion(currentRegion);
+});
+holderEl.appendChild(deathsBtn);
+holderEl.appendChild(casesBtn);
+holderEl.appendChild(recoveredBtn);
+holderEl.appendChild(criticalBtn);
 //Creating the DropDown Menu
 const dropDown = document.createElement("select");
+
+dropDown.addEventListener("input", (e) => {
+  spinner.classList.toggle("none");
+  console.log(
+    fetchFromCountry(e.target.selectedOptions[0].getAttribute("code"))
+  );
+});
+
 window.addEventListener("load", () => {
   const fetching = async () => {
     try {
@@ -32,8 +92,12 @@ window.addEventListener("load", () => {
       const data = await allData.json();
       console.log(data);
       for (let i = 0; i < data.length; i++) {
+        if (data[i].name.common === "Kosovo") {
+          continue;
+        }
         const optionsInDropDown = document.createElement("option");
         optionsInDropDown.textContent = data[i].name.common;
+        optionsInDropDown.setAttribute("code", data[i].cca2);
         dropDown.appendChild(optionsInDropDown);
       }
     } catch (err) {
@@ -51,29 +115,45 @@ europeBtn.textContent = "Europe";
 africaBtn.textContent = "Africa";
 worldBtn.textContent = "World";
 
-document.body.appendChild(asiaBtn);
-document.body.appendChild(americasBtn);
-document.body.appendChild(europeBtn);
-document.body.appendChild(africaBtn);
-document.body.appendChild(worldBtn);
-document.body.appendChild(dropDown);
-document.body.appendChild(canvasEl);
+holderEl.appendChild(asiaBtn);
+holderEl.appendChild(americasBtn);
+holderEl.appendChild(europeBtn);
+holderEl.appendChild(worldBtn);
+holderEl.appendChild(dropDown);
+canvesHoler.appendChild(canvasEl);
+document.body.appendChild(holderEl);
+document.body.appendChild(canvesHoler);
 
 asiaBtn.addEventListener("click", () => {
+  spinner.classList.toggle("none");
+  currentRegion = "/region/Asia";
   fetchCountryByRegion("/region/Asia");
+  // Need to add disable on button
 });
 americasBtn.addEventListener("click", () => {
+  spinner.classList.toggle("none");
+  currentRegion = "/region/Americas";
   fetchCountryByRegion("/region/Americas");
+  // Need to add disable on button
 });
 europeBtn.addEventListener("click", () => {
+  spinner.classList.toggle("none");
+  currentRegion = "/region/Europe";
   fetchCountryByRegion("/region/Europe");
+  // Need to add disable on button
 });
 africaBtn.addEventListener("click", () => {
+  spinner.classList.toggle("none");
+  currentRegion = "/region/Africa";
   fetchCountryByRegion("/region/Africa");
+  // Need to add disable on button
 });
 
 worldBtn.addEventListener("click", () => {
+  spinner.classList.toggle("none");
+  currentRegion = "";
   fetchCountryByRegion("");
+  // Need to add disable on button
 });
 
 async function fetchCountryByRegion(region) {
@@ -86,14 +166,19 @@ async function fetchCountryByRegion(region) {
     dropDown.innerHTML = "";
     countriesArr = [];
     countryCodeArr = [];
-    myChart.destroy(); //! Why??
+    covidDataArr = [];
+    myChart.destroy();
     for (let i = 0; i < data.length; i++) {
+      if (data[i].name.common === "Kosovo") {
+        continue;
+      }
       countriesArr.push(data[i].name.common);
       countryCodeArr.push(data[i].cca2);
       const optionsInDropDown = document.createElement("option");
       optionsInDropDown.textContent = data[i].name.common;
       dropDown.appendChild(optionsInDropDown);
     }
+
     for (let country of countryCodeArr) {
       if (countryCodeArr.includes(country)) {
         try {
@@ -107,13 +192,14 @@ async function fetchCountryByRegion(region) {
         }
       }
     }
-    drawingChart(graphFor, countriesArr, covidDataArr, chartColorsArr);
+    drawingChart(graphFor, countriesArr, covidDataArr);
   } catch (err) {
     console.log("failed", err);
   }
+  spinner.classList.toggle("none");
 }
 
-function drawingChart(graphFor, countryNames, countryCovidData, chartColors) {
+function drawingChart(graphFor, countryNames, countryCovidData) {
   myChart = new Chart(canvasEl, {
     type: "bar",
     data: {
@@ -122,8 +208,8 @@ function drawingChart(graphFor, countryNames, countryCovidData, chartColors) {
         {
           label: `COVID-19 ${graphFor}`,
           data: countryCovidData,
-          backgroundColor: chartColors[0],
-          borderColor: chartColors[1],
+          backgroundColor: [""],
+          borderColor: [""],
           borderWidth: 1,
         },
       ],
@@ -136,4 +222,18 @@ function drawingChart(graphFor, countryNames, countryCovidData, chartColors) {
       },
     },
   });
+}
+
+async function fetchFromCountry(code) {
+  const fetchingData = await fetch(`https://corona-api.com/countries/${code}`);
+  const covidData = await fetchingData.json();
+  const deaths = covidData.data.latest_data.deaths;
+  const confirmed = covidData.data.latest_data.confirmed;
+  const recovered = covidData.data.latest_data.recovered;
+  const critical = covidData.data.latest_data.critical;
+  const newDeaths = covidData.data.today.deaths;
+  const newConfirmed = covidData.data.today.confirmed;
+  console.log(deaths, confirmed, recovered, critical);
+  console.log(newDeaths, newConfirmed);
+  spinner.classList.toggle("none");
 }
