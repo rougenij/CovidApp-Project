@@ -5,7 +5,7 @@ First ever weekend assigment that uses API, and in this project we used
 - **Continent and Country API**
 - **COVID API**
 
-![COVID-APP-WireFrame](covidApp Diagram file.drawio.png)
+![covidApp-WireFrame](covidAppDiagramfile.drawio.png)
 
 ## What does each function do?
 
