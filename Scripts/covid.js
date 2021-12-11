@@ -4,14 +4,14 @@ let countryCodeArr = [];
 let covidDataArr = [];
 let graphFor = "confirmed";
 let currentRegion = "";
-
+// The Elements that show the data of the covid according to specific country
 const deathsEl = document.createElement("span");
 const confirmedEl = document.createElement("span");
 const recoveredEl = document.createElement("span");
 const criticalEl = document.createElement("span");
 const newDeathsEl = document.createElement("span");
 const newConfirmedEl = document.createElement("span");
-//Creating all the display info containers
+//The boxes that holds all the info that are taken from the span above / Creating all display info containers
 const totalDataHolder = document.createElement("div");
 totalDataHolder.classList.add("main-data--holder");
 
@@ -28,6 +28,7 @@ newDeathHolder.classList.add("main-data--newdeath");
 const newCaseHolder = document.createElement("div");
 newCaseHolder.classList.add("main-data--newcases");
 
+// Setting text content to each Element + Appending them to its designated container
 const textEl1 = document.createElement("span");
 textEl1.textContent = "Total Confirmed Cases:";
 const textEl2 = document.createElement("span");
@@ -48,12 +49,18 @@ criticalHolder.appendChild(textEl6);
 newDeathHolder.appendChild(textEl4);
 newCaseHolder.appendChild(textEl2);
 
+//Creating the DropDown Menu
+const dropDown = document.createElement("select");
+
+// Creating the main holders of the page, all the containers + adding class to use in CSS
 const holderEl = document.createElement("div");
 holderEl.classList.add("main-buttons-holder");
 const canvesHoler = document.createElement("div");
 canvesHoler.classList.add("canvas-holder");
 const casesHolder = document.createElement("div");
 casesHolder.classList.add("casesButtons");
+const dropDownSpanEl = document.createElement("span");
+dropDownSpanEl.classList.add("dropdown-menu");
 const spinner = document.querySelector("[data-spinner]");
 const canvasEl = document.createElement("canvas");
 let myChart = new Chart(canvasEl, {});
@@ -65,7 +72,7 @@ const europeBtn = document.createElement("button");
 const africaBtn = document.createElement("button");
 const worldBtn = document.createElement("button"); // Add this API https://corona-api.com/countries
 
-//Buttons that will display the graph
+//Buttons that will display the graph + Adding them to their designated holder
 const casesBtn = document.createElement("button");
 const deathsBtn = document.createElement("button");
 const recoveredBtn = document.createElement("button");
@@ -74,6 +81,40 @@ deathsBtn.textContent = "Death";
 casesBtn.textContent = "Confirmed Cases";
 recoveredBtn.textContent = "Recovered";
 criticalBtn.textContent = "Critical Cases";
+
+const secondHolderEl = document.createElement("div");
+secondHolderEl.classList.add("buttons-main-cotainer");
+secondHolderEl.appendChild(deathsBtn);
+secondHolderEl.appendChild(casesBtn);
+secondHolderEl.appendChild(recoveredBtn);
+secondHolderEl.appendChild(criticalBtn);
+
+//Adding Text content to Each button + Appending them to the right container.
+asiaBtn.textContent = "Asia";
+americasBtn.textContent = "America";
+europeBtn.textContent = "Europe";
+africaBtn.textContent = "Africa";
+worldBtn.textContent = "World";
+
+holderEl.appendChild(asiaBtn);
+holderEl.appendChild(americasBtn);
+holderEl.appendChild(europeBtn);
+holderEl.appendChild(worldBtn);
+holderEl.appendChild(dropDownSpanEl);
+dropDownSpanEl.appendChild(dropDown);
+document.body.appendChild(holderEl);
+document.body.appendChild(secondHolderEl);
+totalDataHolder.appendChild(totalCasesHolder);
+totalDataHolder.appendChild(totalDeathHolder);
+totalDataHolder.appendChild(totalRecovered);
+totalDataHolder.appendChild(criticalHolder);
+totalDataHolder.appendChild(newDeathHolder);
+totalDataHolder.appendChild(newCaseHolder);
+document.body.appendChild(totalDataHolder);
+canvesHoler.appendChild(canvasEl);
+document.body.appendChild(canvesHoler);
+// Adding Event listeners to each display info button.
+//graphFor is a global variable, and it changes to whatever you click on.
 deathsBtn.addEventListener("click", () => {
   graphFor = "deaths";
   fetchCountryByRegion(currentRegion);
@@ -90,18 +131,12 @@ criticalBtn.addEventListener("click", () => {
   graphFor = "critical";
   fetchCountryByRegion(currentRegion);
 });
-const secondHolderEl = document.createElement("div");
-secondHolderEl.appendChild(deathsBtn);
-secondHolderEl.appendChild(casesBtn);
-secondHolderEl.appendChild(recoveredBtn);
-secondHolderEl.appendChild(criticalBtn);
-//Creating the DropDown Menu
-const dropDown = document.createElement("select");
 
+//Event Listener to display the countries in the display info containers
 dropDown.addEventListener("input", (e) => {
   fetchFromCountry(e.target.selectedOptions[0].getAttribute("code"));
 });
-
+// Inserting the name of each country name everytime when the page refreshes into the dropdown menu
 window.addEventListener("load", () => {
   const fetching = async () => {
     try {
@@ -125,61 +160,31 @@ window.addEventListener("load", () => {
   };
   fetching();
 });
-//! Since im fetching the entire data here, basically i can store all this info, and then for each button, i can just go over the data and then display every country that has same continent
 
-//Adding Text content to Each button
-asiaBtn.textContent = "Asia";
-americasBtn.textContent = "America";
-europeBtn.textContent = "Europe";
-africaBtn.textContent = "Africa";
-worldBtn.textContent = "World";
-
-holderEl.appendChild(asiaBtn);
-holderEl.appendChild(americasBtn);
-holderEl.appendChild(europeBtn);
-holderEl.appendChild(worldBtn);
-holderEl.appendChild(dropDown);
-document.body.appendChild(holderEl);
-document.body.appendChild(secondHolderEl);
-totalDataHolder.appendChild(totalCasesHolder);
-totalDataHolder.appendChild(totalDeathHolder);
-totalDataHolder.appendChild(totalRecovered);
-totalDataHolder.appendChild(criticalHolder);
-totalDataHolder.appendChild(newDeathHolder);
-totalDataHolder.appendChild(newCaseHolder);
-document.body.appendChild(totalDataHolder);
-
-canvesHoler.appendChild(canvasEl);
-
-document.body.appendChild(canvesHoler);
-
+// Adding the EventListener to each continent button
 asiaBtn.addEventListener("click", () => {
   currentRegion = "/region/Asia";
   fetchCountryByRegion("/region/Asia");
-  // Need to add disable on button
 });
 americasBtn.addEventListener("click", () => {
   currentRegion = "/region/Americas";
   fetchCountryByRegion("/region/Americas");
-  // Need to add disable on button
 });
 europeBtn.addEventListener("click", () => {
   currentRegion = "/region/Europe";
   fetchCountryByRegion("/region/Europe");
-  // Need to add disable on button
 });
 africaBtn.addEventListener("click", () => {
   currentRegion = "/region/Africa";
   fetchCountryByRegion("/region/Africa");
-  // Need to add disable on button
 });
 
 worldBtn.addEventListener("click", () => {
   currentRegion = "";
   fetchCountryByRegion("");
-  // Need to add disable on button
 });
 
+//Function that fetches first the continent API, and then saves the name and the country code in an array, and then second fetch that matches the countrycode from COVID api with current array.
 async function fetchCountryByRegion(region) {
   spinner.classList.toggle("none");
   try {
@@ -225,6 +230,7 @@ async function fetchCountryByRegion(region) {
   spinner.classList.toggle("none");
 }
 
+//Function to draw the chart
 function drawingChart(graphFor, countryNames, countryCovidData) {
   myChart = new Chart(canvasEl, {
     type: "bar",
@@ -250,6 +256,7 @@ function drawingChart(graphFor, countryNames, countryCovidData) {
   });
 }
 
+//Function to display info of a selected country from dropdown menu
 async function fetchFromCountry(code) {
   spinner.classList.toggle("none");
   deathsEl.textContent = "";

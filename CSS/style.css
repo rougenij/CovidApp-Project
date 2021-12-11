@@ -8,12 +8,61 @@
 header {
   text-align: center;
   color: red;
+  padding: 1rem;
   border-bottom: 2px solid black;
 }
 header i {
   color: black;
   position: relative;
   top: 2px;
+}
+.main-buttons-holder {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+.main-buttons-holder button {
+  padding: 0.6rem 2rem;
+  border-radius: 2rem;
+}
+.dropdown-menu {
+  display: flex;
+  align-items: center;
+}
+.buttons-main-cotainer {
+  display: flex;
+  justify-content: center;
+}
+.buttons-main-cotainer button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.8rem;
+}
+.main-buttons-holder button:hover,
+.buttons-main-cotainer button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+  background: black;
+  color: white;
+}
+.main-data--holder {
+  display: flex;
+  padding: 1rem 5rem;
+}
+.main-data--totalcases,
+.main-data--totaldeath,
+.main-data--totalrecovered,
+.main-data--criticalcases,
+.main-data--newdeath,
+.main-data--newcases {
+  width: 45%;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  border: 1px solid black;
+}
+.canvas-holder {
+  width: 100%;
+  padding: 0 10rem;
 }
 /* Spinner CSS */
 
@@ -373,5 +422,76 @@ header i {
   .message {
     font-size: 1.25rem;
     margin: 42.5% 0;
+  }
+}
+
+/* Responsive */
+@media (max-width: 1283px) {
+  .loading-screen {
+    width: 100%;
+    height: 100vh;
+  }
+  .main-buttons-holder button {
+  }
+  .main-data--holder {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 615px) {
+  .loading-screen {
+    width: 100%;
+    height: 100vh;
+  }
+  .main-buttons-holder button {
+    width: 50%;
+    padding: 1rem 0.5rem;
+    border-radius: 0.6rem;
+    margin: 0 0.3rem;
+  }
+  .dropdown-menu select {
+    width: 100px;
+  }
+  .main-data--holder {
+    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0;
+    font-size: 0.8rem;
+  }
+  .buttons-main-cotainer button {
+    width: 50%;
+    padding: 0.2rem 1rem;
+    border-radius: 1.5rem;
+    margin: 0 0.3rem;
+  }
+  .main-data--totalcases,
+  .main-data--totaldeath,
+  .main-data--totalrecovered,
+  .main-data--criticalcases,
+  .main-data--newdeath,
+  .main-data--newcases {
+    padding: 0.5rem 0.5rem;
+    width: 50%;
+  }
+  .canvas-holder {
+    width: 100%;
+    padding: 1rem 0;
+  }
+}
+
+@media (max-height: 375px) {
+  .canvas-holder {
+    padding: 0 2rem;
+  }
+  .main-data--holder {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
   }
 }
