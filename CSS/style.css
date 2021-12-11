@@ -27,7 +27,8 @@ header i {
 }
 .dropdown-menu {
   display: flex;
-  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 .buttons-main-cotainer {
   display: flex;
@@ -417,9 +418,10 @@ header i {
   }
   .body,
   .centered {
-    left: 30%;
+    left: 39%;
   }
   .message {
+    left: 10%;
     font-size: 1.25rem;
     margin: 42.5% 0;
   }
@@ -432,7 +434,8 @@ header i {
     height: 100vh;
   }
   .main-data--holder {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
   }
 }
@@ -444,12 +447,12 @@ header i {
   }
   .main-buttons-holder button {
     width: 50%;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.7rem;
     border-radius: 1.5rem;
     margin: 0 0.3rem;
   }
   .dropdown-menu select {
-    width: 100px;
+    width: 75%;
   }
   .main-data--holder {
     padding: 1rem 0;
@@ -463,7 +466,7 @@ header i {
   }
   .buttons-main-cotainer button {
     width: 50%;
-    padding: 0.2rem 1rem;
+    padding: 0.2rem 0.8rem;
     border-radius: 1.5rem;
     margin: 0 0.3rem;
   }
