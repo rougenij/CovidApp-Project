@@ -23,6 +23,7 @@ header i {
 }
 .main-buttons-holder button {
   padding: 0.6rem 2rem;
+  margin: 0 0.2rem;
   border-radius: 2rem;
 }
 .dropdown-menu {
@@ -36,6 +37,7 @@ header i {
 }
 .buttons-main-cotainer button {
   padding: 0.5rem 1rem;
+  margin: 0 0.2rem;
   border-radius: 0.8rem;
 }
 .main-buttons-holder button:hover,
